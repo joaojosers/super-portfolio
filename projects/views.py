@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+# from projects import serializers
 from projects.models import (
     Certificate,
     CertifyingInstitution,
@@ -11,7 +12,6 @@ from projects.serializers import (
     ProfileSerializer,
     ProjectSerializer
 )
-
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.shortcuts import render
 
@@ -29,11 +29,14 @@ class ProfileViewSet(viewsets.ModelViewSet):
         if request.method == "GET":
             profile_id = kwargs.get("pk")
             profile = Profile.objects.get(id=profile_id)
-
+            serializers = self.get_serializer(profile)
+            # serializers = ProfileSerializer(profile)
             return render(
                 request,
                 "profile_detail.html",
-                {"profile": profile}
+                # {"profile": profile}
+                {"profile": serializers.data}
+
             )
         return super().retrieve(request, *args, **kwargs)
 
