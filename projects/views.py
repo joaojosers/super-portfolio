@@ -37,7 +37,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
         if self.request.method == "GET":
             return [AllowAny()]
         return [IsAuthenticated()]
-    
+
     def retrieve(self, request, *args, **kwargs):
         if request.method == "GET":
             profile_id = kwargs.get("pk")
