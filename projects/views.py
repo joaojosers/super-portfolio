@@ -32,7 +32,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
             serializers = self.get_serializer(profile)
             projects = profile.projects.all()
             certificates = profile.certificates.all()
-   
+
             context = {
                 "profile": serializers.data,
                 "projects": projects,
@@ -46,25 +46,6 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
             )
         return super().retrieve(request, *args, **kwargs)
-
-    # def retrieve(self, request, *args, **kwargs):
-    #     instance = self.get_object()
-    #     serializers = self.get_serializer(instance)
-    #     projects = instance.projects.all()
-    #     certificates = instance.certificates.all()
-
-    #     context = {
-    #         "profile": serializers.data,
-    #         "projects": projects,
-    #         "certificates": certificates
-    #     }
-
-    #     return render(
-    #         request,
-    #         "profile_detail.html",
-    #         context
-    #     )
-    #     return super().retrieve(request, *args, **kwargs)
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
