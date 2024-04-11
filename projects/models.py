@@ -20,7 +20,8 @@ class Project(models.Model):
     profile = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE,
-        related_name='projects')
+        related_name="projects"
+        )
 
     def __str__(self):
         return self.name
@@ -48,7 +49,6 @@ class Certificate(models.Model):
         Profile,
         related_name="certificates",
         max_length=500,
-        null=False
         )
 
     def __str__(self):
