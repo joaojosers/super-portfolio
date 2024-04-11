@@ -11,7 +11,7 @@
   <p>{{ profile.linkedin }}</p>
   <h2>Projects:</h2>
   <ul>
-    {% for project in profile.project_set.all %}
+    {% for project in profile.projects %}
       <li>{{ project.name }} - {{ project.description }}</li>
     {% endfor %}
   </ul>

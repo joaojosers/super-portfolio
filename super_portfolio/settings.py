@@ -94,7 +94,7 @@ DATABASES = {
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": "spotnews_database",
+#         "NAME": "super_portfolio_database",
 #     }
 # }
 
