@@ -26,15 +26,45 @@ class ProfileViewSet(viewsets.ModelViewSet):
         return [IsAuthenticated()]
 
     def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        projects = instance.projects.all()
-        context = {
-            'profile': serializer.data,
-            'projects': projects,  # Passa os projetos para o contexto
-        }
+        if request.method == "GET":
+            profile_id = kwargs.get("pk")
+            profile = Profile.objects.get(id=profile_id)
+            serializers = self.get_serializer(profile)
+            projects = profile.projects.all()
+            certificates = profile.certificates.all()
+   
+            context = {
+                "profile": serializers.data,
+                "projects": projects,
+                "certificates": certificates
+            }
 
-        return render(request, "profile_detail.html", context)
+            return render(
+                request,
+                "profile_detail.html",
+                context,
+
+            )
+        return super().retrieve(request, *args, **kwargs)
+
+    # def retrieve(self, request, *args, **kwargs):
+    #     instance = self.get_object()
+    #     serializers = self.get_serializer(instance)
+    #     projects = instance.projects.all()
+    #     certificates = instance.certificates.all()
+
+    #     context = {
+    #         "profile": serializers.data,
+    #         "projects": projects,
+    #         "certificates": certificates
+    #     }
+
+    #     return render(
+    #         request,
+    #         "profile_detail.html",
+    #         context
+    #     )
+    #     return super().retrieve(request, *args, **kwargs)
 
 
 class ProjectViewSet(viewsets.ModelViewSet):

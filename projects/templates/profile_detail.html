@@ -9,9 +9,20 @@
   <h2>{{ profile.bio }}</h2>
   <p>{{ profile.github }}</p>
   <p>{{ profile.linkedin }}</p>
+    <h2>Projects:</h2>
     <ul>
-        {% for project in projects %}
-            <li>{{ project.name }}</li>
-        {% endfor %}
+      {% for project in projects %}
+        <li>{{ project.name }}</li>
+        <li>{{ project.keyword }} /li>
+        <li>{{ project.project.key_skill }} </li>
+      {% endfor %}
     </ul>
+    <h2>Certificates:</h2>
+    <ul>
+      {% for certificate in certificates%}
+     <li>{{ certificate.name }} </li>
+     <li>{{ certificate.certifying_institution.name }}</li>
+      {% endfor %}
+    </ul>
+  
 {% endblock %}
