@@ -26,19 +26,15 @@ class ProfileViewSet(viewsets.ModelViewSet):
         return [IsAuthenticated()]
 
     def retrieve(self, request, *args, **kwargs):
-        if request.method == "GET":
-            profile_id = kwargs.get("pk")
-            profile = Profile.objects.get(id=profile_id)
-            serializers = self.get_serializer(profile)
-            # serializers = ProfileSerializer(profile)
-            return render(
-                request,
-                "profile_detail.html",
-                # {"profile": profile}
-                {"profile": serializers.data}
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        projects = instance.projects.all()
+        context = {
+            'profile': serializer.data,
+            'projects': projects,  # Passa os projetos para o contexto
+        }
 
-            )
-        return super().retrieve(request, *args, **kwargs)
+        return render(request, "profile_detail.html", context)
 
 
 class ProjectViewSet(viewsets.ModelViewSet):

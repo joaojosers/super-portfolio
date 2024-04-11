@@ -1,10 +1,11 @@
 # from django.db import router
 from django.urls import path, include
-from projects.views import (CertificateViewSet,
-                            CertifyingInstitutionViewSet,
-                            ProfileViewSet,
-                            ProjectViewSet
-                            )
+from projects.views import (
+    CertificateViewSet,
+    CertifyingInstitutionViewSet,
+    ProfileViewSet,
+    ProjectViewSet
+)
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
