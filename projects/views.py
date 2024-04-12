@@ -25,27 +25,47 @@ class ProfileViewSet(viewsets.ModelViewSet):
             return [AllowAny()]
         return [IsAuthenticated()]
 
+    # def retrieve(self, request, *args, **kwargs):
+    #     if request.method == "GET":
+    #         profile_id = kwargs.get("pk")
+    #         profile = Profile.objects.get(id=profile_id)
+    #         serializers = self.get_serializer(profile)
+    #         projects = profile.projects.all()
+    #         certificates = profile.certificates.all()
+
+    #         context = {
+    #             "profile": serializers.data,
+    #             "projects": projects,
+    #             "certificates": certificates
+    #         }
+
+    #         return render(
+    #             request,
+    #             "profile_detail.html",
+    #             context,
+
+    #         )
+    #     return super().retrieve(request, *args, **kwargs)
+
     def retrieve(self, request, *args, **kwargs):
-        if request.method == "GET":
-            profile_id = kwargs.get("pk")
-            profile = Profile.objects.get(id=profile_id)
-            serializers = self.get_serializer(profile)
-            projects = profile.projects.all()
-            certificates = profile.certificates.all()
+        instance = self.get_object()
+        serializers = self.get_serializer(instance)
+        projects = instance.projects.all()
+        certificates = instance.certificates.all()
 
-            context = {
-                "profile": serializers.data,
-                "projects": projects,
-                "certificates": certificates
-            }
+        context = {
+            "profile": serializers.data,
+            "projects": projects,
+            "certificates": certificates
+        }
 
-            return render(
-                request,
-                "profile_detail.html",
-                context,
+        return render(
+            request,
+            "profile_detail.html",
+            context
+        )
 
-            )
-        return super().retrieve(request, *args, **kwargs)
+        # return super().retrieve(request, *args, **kwargs)
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
